@@ -337,86 +337,15 @@
       
         
           
-            <p>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;其实很早就想弄一个博客了，觉得有一个属于自己的网站是件很酷很炫很装X的事。所以前段时间在阿里上注册了一个域名买了一个服务器，也大概搭了一个简单的页面，但是感觉要完全搭出一个很酷的页面还是挺费时间的。于是在知乎上搜了下，给我推荐了<a href="https://zhuanlan.zhihu.com/p/26625249" title="GitHub+Hexo 搭建个人网站详细教程" target="_blank" rel="noopener">这篇文章</a>。<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;这里我只是记录了建站的一些主要步骤，如果你要问我Github、Hexo等是什么，可以参考前面的链接。好了，废话不多说进入正题吧！</p>
-<p><strong>搭建步骤：</strong></p>
-<ul>
-<li>Github创建仓库</li>
-<li>安装Git</li>
-<li>安装Node.js</li>
-<li>安装Hexo</li>
-<li>推送网站</li>
-<li>绑定域名</li>
-<li>更换主题</li>
-<li>使用MarkDown写博客</li>
-</ul>
-<h5 id="Github创建仓库"><a href="#Github创建仓库" class="headerlink" title="Github创建仓库"></a>Github创建仓库</h5><p>在<a href="https://github.com/" title="转到Github官网" target="_blank" rel="noopener">Github官网</a>注册账号，在Repositories里面新建一个仓库，仓库命名方式为：<strong>用户名.github.io</strong>，用户名为你的Github账号。</p>
-<h5 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h5><p>在<a href="https://git-scm.com/download" title="转到Git官网" target="_blank" rel="noopener">Git官网</a>下载Git安装。<br>在搜索栏搜索Git Bash或者在桌面上右击鼠标找到Git Bash Here，输入git测试是否安装成功，若安装失败卸载重装或者根据原因自行百度。<br>安装成功后将Git和Github账号绑定，输入下面命令：<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<code>git config --global user.name &quot;你的GitHub用户名&quot;</code><br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<code>git config --global user.email &quot;你的GitHub注册邮箱&quot;</code><br>生成SSH密钥：<br>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<code>ssh-keygen -t rsa -C &quot;你的GitHub注册邮箱&quot;</code><br>在你的电脑中找到.ssh这个文件夹（看上面命令给你分配的路径），将其中id_rsa.pub文件用记事本打开，复制内容，打开GitHub的<a href="https://github.com/settings/ssh/new" title="转到Github设置页面" target="_blank" rel="noopener">Settings页面</a>，选择New SHH key，将刚复制好的文件放到key一栏中，title随便填写，最后点击Add SSH key。<br>在Git Bash中检验Github公钥是否设置成功，输入命令：<code>ssh git@github.com</code>,现实successfully就说明成功设置了。</p>
-<h5 id="安装Node-JS"><a href="#安装Node-JS" class="headerlink" title="安装Node.JS"></a>安装Node.JS</h5><p>Hexo基于Node.js，这部分都是在搭建Hexo需要的环境，<a href="https://nodejs.org/en/download/" title="转到Node.js官网" target="_blank" rel="noopener">Node.js下载地址</a>,选择安装Node.js包包含环境变量和npm的安装。检验Node.js是否安装成功，输入<code>node -v</code>会显示当前版本。检验npm是否安装成功，输入<code>npm -v</code>会显示当前版本。</p>
-<h5 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h5><p>Hexo是我们个人博客的框架。在电脑中新建一个文件夹，以后我们的博客都可以放在这个文件夹里面。然后在这个文件夹中，按住shift键并右击鼠标，打开Git Bash，输入npm命令<code>npm install -g hexo-cli</code>安装Hexo（时间有点长）。安装完成后我们就可以开始建立博客了。<br>首先，初始化博客。使用命令<code>hexo init blog</code>，这条命令会初始化一个博客，并在刚才那个文件夹里创建一个名称为blog的文件夹。为了检测网站雏形，可以使用下列命令，</p>
-<pre><code>hexo new test_my_site
-hexo g
-hexo s
-</code></pre><p>上述命令作用分别为：创建一个名称为test_my_site的博客，生成博客，启动服务。</p>
-<h6 id="一个小坑"><a href="#一个小坑" class="headerlink" title="一个小坑"></a>一个小坑</h6><pre><code>不过使用这些命令之前**先输入命令`cd blog`**。
-这里很重要，我在这个地方栽了一个很大坑，
-如果没有进入blog文件夹，后面命令会出现`Usage: hexo &lt;command&gt;`接一堆help文档的信息，
-所以一定要进入blog文件夹在进行后面操作。
-</code></pre><p>以上操作成功的话，你再网址栏输入<code>localhost:4000</code>就可以看到我们的博客网页了，是不是很激动，哈哈。<br>常用Hexo命令：</p>
-<pre><code>npm install hexo -g #安装Hexo
-npm update hexo -g #升级 
-hexo init #初始化博客
-
-命令简写
-hexo n &quot;我的博客&quot; == hexo new &quot;我的博客&quot; #新建文章
-hexo g == hexo generate #生成
-hexo s == hexo server #启动服务预览
-hexo d == hexo deploy #部署
-
-hexo server #Hexo会监视文件变动并自动更新，无须重启服务器
-hexo server -s #静态模式
-hexo server -p 5000 #更改端口
-hexo server -i 192.168.1.1 #自定义 IP
-hexo clean #清除缓存，若是网页正常情况下可以忽略这条命令
-</code></pre><h5 id="推送网站"><a href="#推送网站" class="headerlink" title="推送网站"></a>推送网站</h5><p>推送网站，也就是发布网站，能够在浏览器里输入url访问啦。下面我们将Hexo和Github关联起来（让Hexo知道你要把blog部署在哪个位置），打开blog文件夹里的_config.yml文件（站点配置文件），将文件末尾修改为：</p>
-<pre><code>deploy: 
-type: git
-repo: 这里填入你之前在GitHub上创建仓库的完整路径，记得加上 .git
-branch: master参考如下：
-</code></pre><p>接下来我们要安装Git部署插件，输入命令：<code>npm install hexo-deployer-git --save</code>。</p>
-<h6 id="一个小坑-1"><a href="#一个小坑-1" class="headerlink" title="一个小坑"></a>一个小坑</h6><pre><code>安装deployer-git出现包不在维护This package is no longer maintained的问题
-原因：blog下node_modules文件夹下发现“hexo-deployer-git”文件异常
-解决：使用淘宝npm镜像
-而使用淘宝npm时由于要使用命令cnpm install hexo-deployer-git --save
-又会出现command not found错误
-问题在于 你没用用淘宝的镜像 安装cnpm
-解决办法npm install cnpm -g --registry=https://registry.npm.taobao.org
-</code></pre><p>这个坑我也栽了好久，翻了好多博客才找到解决办法。<br>安装好Git插件后，我们就可以部署我们的网站了，输入命令：</p>
-<pre><code>hexo clean 
-hexo g 
-hexo d
-</code></pre><p>最后，我们在浏览器中输入你放置个人网站的仓库路径 xxxx.github.io ，然后就可以查看到页面信息了。此时，恭喜你的博客上线了。</p>
-<h5 id="绑定域名"><a href="#绑定域名" class="headerlink" title="绑定域名"></a>绑定域名</h5><p>如果你想使用个性化的域名来访问你的博客，这里就需要进行绑定域名操作了。我使用的是<a href="https://wanwang.aliyun.com/" title="转到阿里云域名注册" target="_blank" rel="noopener">阿里云</a>.top的域名，价格相对还是很便宜的（5块钱），土豪可以考虑.com这些。购买域名后可能会需要实名注册，如果有登记一下信息就行了。<br>进入阿里云的控制台-域名，选择你的域名，进入解析，添加下面三条：</p>
-<pre><code>192.30.252.153          选择A记录
-192.30.252.154          选择A记录
-你的用户名.github.io     选择CNAME记录
-</code></pre><p>然后进入<a href="https://github.com/" title="转到Github" target="_blank" rel="noopener">Github</a>之前建立的仓库，进入settings项，设置里面的Custom domain，输入你购买的域名，保存。<br>最后在本地博客文件夹blog/source目录下，创建一个记事本文件，输入你的域名，<strong>文件保存为所有格式</strong>，<strong>命名为CNAME</strong>。<br>文件中如果带有www，那么以后访问的时候必须带有www完整的域名才可以访问，但如果不带有www，以后访问的时候带不带www都可以访问。所以建议，不要带有www。<br>设置好后，我们就可以进入blog文件夹进行部署，在blog文件夹，打开Git Bash，输入命令：</p>
-<pre><code>hexo clean
-hexo g
-hexo d
-</code></pre><p>最后在浏览器输入你的域名进行访问，哇咔，你自己的博客耶。<br>如果最后不能正常访问网站，出现404错误，检查前面过程是不是操作有误。我当时在Custom domain里面输错了域名（域名和我github昵称差了一个字母），找了好久原因，所以一定要细心。</p>
-<h5 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h5><p>要修改Hexo的默认主题，在<a href="https://hexo.io/themes" title="转到hexo主题" target="_blank" rel="noopener">Hexo主题</a>里面选择,我这里选择的是next主题<br>所以输入命令<code>git clone https://github.com/iissnan/hexo-theme-next themes/next</code>，添加next主题进去。<br>如果要选择next主题的样式，可以打开blog\themes\next文件夹中的主题配置文件_config.yml，找到scheme，修改样式（去掉#就是选中该样式）。<br>选择好后，输入命令<code>hexo g</code>和<code>hexo d</code>重新部署一下就可以。<br>传送门：<a href="https://blog.csdn.net/acm_th/article/details/79974513" title="Next四种样式" target="_blank" rel="noopener">Next主题四种样式的差别</a><br>传送门：<a href="http://theme-next.iissnan.com/theme-settings.html" title="hexo主题配置" target="_blank" rel="noopener">hexo主题配置</a></p>
-<h5 id="使用MarkDown写博客"><a href="#使用MarkDown写博客" class="headerlink" title="使用MarkDown写博客"></a>使用MarkDown写博客</h5><p>网站搭建好了，我们怎么发表博客啊？这里推荐使用MarkDown编辑器，<a href="http://www.markdownpad.com/" title="MarkDown下载" target="_blank" rel="noopener">下载地址</a>。</p>
-<pre><code>整理了一下MarkDown的破解序列以及win10下使用需要安装的一个插件
-Email address :
- Soar360@live.com  
-
-License key : 
-GBPduHjWfJU1mZqcPM3BikjYKF6xKhlKIys3i1MU2eJHqWGImDHzWdD6xhMNLGVpbP2M5SN6bnxn2kSE8qHqNY5QaaRxmO3YSMHxlv2EYpjdwLcPwfeTG7kUdnhKE0vVy4RidP6Y2wZ0q74f47fzsZo45JE2hfQBFi2O9Jldjp1mW8HUpTtLA2a5/sQytXJUQl/QKO0jUQY4pa5CCx20sV1ClOTZtAGngSOJtIOFXK599sBr5aIEFyH0K7H4BoNMiiDMnxt1rD8Vb/ikJdhGMMQr0R4B+L3nWU97eaVPTRKfWGDE8/eAgKzpGwrQQoDh+nzX1xoVQ8NAuH+s4UcSeQ==
-
-插件下载地址：https://pan.baidu.com/s/1qY7LKba
-</code></pre><p>MarkDowm具体语法参考：<a href="https://www.appinn.com/markdown/" title="Markdown 语法说明 (简体中文版)" target="_blank" rel="noopener">链接</a></p>
-
-          
+          &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;其实很早就想弄一个博客了，觉得有一个属于自己的网站是件很酷很炫很装X的事。所以前段时间在阿里上注册了一个域名买了一个服务器，也大概搭了一个简单的页面，但是感觉要完全搭出一个很酷的页面还是挺费时间的。于是在
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/28/GitHub-Hexo搭建个人博客/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -576,7 +505,7 @@ GBPduHjWfJU1mZqcPM3BikjYKF6xKhlKIys3i1MU2eJHqWGImDHzWdD6xhMNLGVpbP2M5SN6bnxn2kSE
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Powered by </div>
 
 
 
@@ -584,7 +513,7 @@ GBPduHjWfJU1mZqcPM3BikjYKF6xKhlKIys3i1MU2eJHqWGImDHzWdD6xhMNLGVpbP2M5SN6bnxn2kSE
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+  <div class="theme-info">Theme &mdash;  v5.1.4</div>
 
 
 
